@@ -203,8 +203,41 @@ int search_list(node head, int key)
 int main(int argc, char const *argv[])
 {
 
-	node head = create_node(3);
-	printf("Node : %d\n",head->data);
+	node head;
+
+	int val;
+	int opt;
+	node newn;
+	do
+	{
+		printf("0. Exit\n1. Insert Front\n2. Insert End\n3. Delete Last\n4. Delete First\n5. Display List\n6. Search List\n");
+		printf("\nEnter the option: ");
+		scanf("%d", &opt);
+		switch(opt)
+		{
+			case 0: break;
+			case 1: printf("Enter value to insert: ");
+			scanf("%d", &val);
+			newn = create_node(val);
+			insert_front(head, newn); break;
+
+			case 2: printf("Enter value to insert: ");
+			scanf("%d", &val);
+			newn = create_node(val);
+			insert_end(head, newn); break;
+
+			case 3: delete_last(head);break;
+			case 4: delete_first(head);break;
+			case 5: display_list(head);break;
+
+			case 6: printf("Enter key to search:");
+			scanf("%d", &val);
+			search_list(head, val); break;
+
+			default: printf("Enter a valid value.\n");
+
+		}
+	}while(opt);
 	
 	return 0;
 }
