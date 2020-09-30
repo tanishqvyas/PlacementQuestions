@@ -47,9 +47,23 @@ def isHappyNumber(n):
 
 # function to run tests
 def main():
+	f = open("test_case.txt")
+	check = True
+	for line in f:
+		line = line.strip()
+		line = line.split()
+		val = int(line[0])
+		out = line[1]
 
-	if isHappyNumber(1):
-		print("Works")
+		res = isHappyNumber(val)
+		if((res and out == "NO") or (not res and out == "YES")):
+			check = False
+			print("Test case failed for ", val, sep = "")
+
+	if(check):
+		print("All test cases passed")
+
+	f.close()
 
 
 if __name__ == '__main__':
