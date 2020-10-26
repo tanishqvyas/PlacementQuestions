@@ -150,6 +150,7 @@ void display_list(node head)
 	while(ptr != NULL)
 	{
 		printf("%d-->", ptr->data);
+		ptr = ptr->next;
 	}
 
 	printf("\n");
@@ -197,14 +198,75 @@ int search_list(node head, int key)
 	}
 }
 
+int middle_node(node head)
+{
+	if(head == NULL)
+	{
+		printf("List is empty. No middle node\n");
+		return -1;
+	}
+	node ptr1 = head;
+	node ptr2 = head;
+
+	while(ptr2 != NULL && ptr2->next != NULL)
+	{
+		ptr1 = ptr1->next;
+		ptr2 = ptr2->next->next;
+	}
+
+	return ptr1->data;
+}
 
 
 
 int main(int argc, char const *argv[])
 {
 
-	node head = create_node(3);
-	printf("Node : %d\n",head->data);
+	node head = NULL;
+
+	int val;
+	int opt;
+	node newn;
+	do
+	{
+		printf("\n0. Exit\n1. Insert Front\n2. Insert End\n3. Delete Last\n4. Delete First\n5. Display List\n6. Search List\n7. Print Middle Node\n");
+		printf("\nEnter the option: ");
+		scanf("%d", &opt);
+		switch(opt)
+		{
+			case 0: break;
+			case 1: printf("Enter value to insert: ");
+			scanf("%d", &val);
+			newn = create_node(val);
+			head = insert_front(head, newn); break;
+
+			case 2: printf("Enter value to insert: ");
+			scanf("%d", &val);
+			newn = create_node(val);
+			head = insert_end(head, newn); break;
+
+			case 3: head = delete_last(head);break;
+			case 4: head = delete_first(head);break;
+			case 5: display_list(head);break;
+
+			case 6: printf("Enter key to search:");
+			scanf("%d", &val);
+			int res = search_list(head, val); 
+			if(res != -1)
+				printf("\n%d is present at index %d\n", val, res);
+			else
+				printf("\n%d is not present\n", val);
+			break;
+
+			case 7: val = middle_node(head);
+			if(val != -1)
+				printf("\n%d is the middle node\n", middle_node(head));
+			break;
+
+			default: printf("Enter a valid value.\n");
+
+		}
+	}while(opt);
 	
 	return 0;
 }
